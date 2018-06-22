@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<allocations>
+    <pool name="sample_pool_1">
+        <minMaps>5</minMaps>
+        <minReduces>5</minReduces>
+        <maxMaps>25</maxMaps>
+        <maxReduces>25</maxReduces>
+        <minSharePreemptionTimeout>300</minSharePreemptionTimeout>
+    </pool>
+    <user name="sample_user">
+        <maxRunningJobs>6</maxRunningJobs>
+    </user>
+    <userMaxJobsDefault>3</userMaxJobsDefault>
+    <fairSharePreemptionTimeout>600</fairSharePreemptionTimeout>
+</allocations>
+
+        <!--
+                The allocation file configures minimum shares, running job limits, weights and preemption timeouts for each pool.
+                Only users/pools whose values differ from the defaults need to be explicitly configured in this file.
+                The allocation file is located in HADOOP_HOME/conf/fair-scheduler.xml. It can contain the following types of elements:
+
+                pool elements, which configure each pool. These may contain the following sub-elements:
+                minMaps and minReduces, to set the pool's minimum share of task slots.
+                maxMaps and maxReduces, to set the pool's maximum concurrent task slots.
+                schedulingMode, the pool's internal scheduling mode, which can be fair for fair sharing or fifo for first-in-first-out.
+                maxRunningJobs, to limit the number of jobs from the pool to run at once (defaults to infinite).
+                weight, to share the cluster non-proportionally with other pools. For example, a pool with weight 2.0 will get a 2x
+                higher share than other pools. The default weight is 1.0.
+                minSharePreemptionTimeout, the number of seconds the pool will wait before killing other pools' tasks if it
+                is below its minimum share (defaults to infinite).
+                user elements, which may contain a maxRunningJobs element to limit jobs. Note that by default, there is
+                a pool for each user, so per-user limits are not necessary.
+                poolMaxJobsDefault, which sets the default running job limit for any pools whose limit is not specified.
+                userMaxJobsDefault, which sets the default running job limit for any users whose limit is not specified.
+                defaultMinSharePreemptionTimeout, which sets the default minimum share preemption timeout for any pools
+                where it is not specified.
+                fairSharePreemptionTimeout, which sets the preemption timeout used when jobs are below half their fair share.
+                defaultPoolSchedulingMode, which sets the default scheduling mode (fair or fifo) for pools whose mode is not specified.
+                Pool and user elements only required if you are setting non-default values for the pool/user.
+                That is, you do not need to declare all users and all pools in your config file before running the fair scheduler.
+                If a user or pool is not listed in the config file, the default values for limits, preemption timeouts, etc will be used.
+
+        -->

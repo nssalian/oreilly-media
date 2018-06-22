@@ -1,0 +1,38 @@
+// Saving a List of Numbers
+
+Command: scala> val distData = sc.parallelize(1 to 10000)
+Response:       distData: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:27
+
+Command: scala> distData.first()
+Response:       res2: Int = 1
+
+Command: distData.count()
+Response: res1: Long = 10000
+
+distData.
+<!--
+Hit Tab to reveal the options in the API.
+<
+  ++             context               filter                  getStorageLevel   localCheckpoint          partitions           randomSplit        sparkContext   toDF              unpersist
+  aggregate      copy                  first                   glom              map                      persist              reduce             stats          toDS              variance
+  cache          count                 flatMap                 groupBy           mapPartitions            pipe                 repartition        stdev          toDebugString     zip
+  canEqual       countApprox           fold                    histogram         mapPartitionsWithIndex   popStdev             sample             subtract       toJavaRDD         zipPartitions
+  cartesian      countApproxDistinct   foreach                 id                max                      popVariance          sampleStdev        sum            toLocalIterator   zipWithIndex
+  checkpoint     countAsync            foreachAsync            intersection      mean                     preferredLocations   sampleVariance     sumApprox      toString          zipWithUniqueId
+  coalesce       countByValue          foreachPartition        isCheckpointed    meanApprox               productArity         saveAsObjectFile   take           top
+collect        countByValueApprox    foreachPartitionAsync   isEmpty           min                      productElement       saveAsTextFile     takeAsync      treeAggregate
+collectAsync   dependencies          getCheckpointFile       iterator          name                     productIterator      setName            takeOrdered    treeReduce
+compute        distinct              getNumPartitions        keyBy             partitioner              productPrefix        sortBy             takeSample     union
+
+-->
+
+---- Word Count ------
+
+Command: scala> val lines = sc.textFile("dataFile.txt")
+Response:       lines: org.apache.spark.rdd.RDD[String] = dataFile.txt MapPartitionsRDD[4] at textFile at <console>:24
+
+Command: scala> val lineLengths = lines.map(word => word.length)
+Response:       lineLengths: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[5] at map at <console>:25
+
+Command: scala> val totalLength = lineLengths.reduce((a, b) => a + b)
+Response:       totalLength: Int = 1801
